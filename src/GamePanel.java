@@ -12,6 +12,8 @@ public class GamePanel extends JPanel implements Runnable
     final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
+    int FPS = 60;
+
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Player player = new Player();
@@ -37,11 +39,31 @@ public class GamePanel extends JPanel implements Runnable
         {
             update();
             repaint();
+            try {
+                Thread.sleep(1000 / FPS);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public void update()
     {
-
+        if (keyHandler.isDownPressed())
+        {
+            player.changePosY(player.getSpeed());
+        }
+        else if (keyHandler.isLeftPressed())
+        {
+            player.changePosX(player.getSpeed() * -1);
+        }
+        else if (keyHandler.isRightPressed())
+        {
+            player.changePosX(player.getSpeed());
+        }
+        else if (keyHandler.isUpPressed())
+        {
+            player.changePosY(player.getSpeed() * -1);
+        }
     }
     public void paintComponent(Graphics g)
     {
