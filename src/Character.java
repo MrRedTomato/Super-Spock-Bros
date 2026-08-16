@@ -1,9 +1,9 @@
 abstract class Character
 {
     int health, damage;
-    public Character()
+    public Character(int health, int damage)
     {
-        health = 100;
-        damage = 10;
+        this.health = health;
+        this.damage = damage;
     }
 }
