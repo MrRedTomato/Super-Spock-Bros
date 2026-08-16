@@ -29,4 +29,11 @@ abstract class Character
     {
         return "" + posX + ", " + posY;
     }
+    public int getPosX()
+    {
+        return posX;
+    }
+    public int getPosY() {
+        return posY;
+    }
 }
