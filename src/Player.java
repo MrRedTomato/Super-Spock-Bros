@@ -7,16 +7,28 @@ public class Player extends Entity
 {
     private KeyHandler keyHandler;
     private GamePanel gamePanel;
-    private boolean jumped = false;
-    private int vX, vY, jumpStrength;
+    private boolean jumped;
+    private boolean touchingPlatform;
+    private int vY, jumpStrength;
     public Player(KeyHandler keyHandler, GamePanel gamePanel) {
-        super(100, 10, 100, 100);
+        super(100, 10, gamePanel.screenWidth / 2, 200);
         this.gamePanel = gamePanel;
         this.keyHandler = keyHandler;
         getPlayerImage();
         direction = "right";
         vY = 0;
         jumpStrength = 13;
+        jumped = false;
+    }
+
+    public int getVY()
+    {
+        return vY;
+    }
+
+    public void setTouchingPlatform(boolean touchingPlatform)
+    {
+        this.touchingPlatform = touchingPlatform;
     }
 
     public void getPlayerImage()
@@ -33,22 +45,19 @@ public class Player extends Entity
     public void update()
     {
         changePosY(vY);
-        vY += gamePanel.gravity;
+        if (vY < gamePanel.terminalV)
+        {
+            vY += gamePanel.gravity;
+        }
+        else
+        {
+            vY = gamePanel.terminalV;
+        }
         if (getPosY() >= gamePanel.screenHeight - gamePanel.tileSize)
         {
             vY = 0;
             setPosY(gamePanel.screenHeight - gamePanel.tileSize);
             jumped = false;
-        }
-        if (keyHandler.isLeftPressed())
-        {
-            direction = "left";
-            changePosX(getSpeed() * -1);
-        }
-        if (keyHandler.isRightPressed())
-        {
-            direction = "right";
-            changePosX(getSpeed());
         }
         if (keyHandler.isUpPressed() && !jumped)
         {
@@ -56,13 +65,21 @@ public class Player extends Entity
             vY = jumpStrength * -1;
             jumped = true;
         }
+        if (keyHandler.isRightPressed())
+        {
+            direction = "right";
+        }
+        if (keyHandler.isLeftPressed())
+        {
+            direction = "left";
+        }
     }
 
     public void draw(Graphics2D g)
     {
         BufferedImage image = null;
 
-        if (direction == "right")
+        if (direction.equals("right"))
         {
             image = right;
         }
