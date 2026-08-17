@@ -1,4 +1,4 @@
-public class Enemy extends Character
+public class Enemy extends Entity
 {
     public Enemy()
     {

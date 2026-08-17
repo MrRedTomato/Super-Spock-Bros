@@ -5,6 +5,7 @@ public class GamePanel extends JPanel implements Runnable
 {
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
+    final int gravity = 1;
 
     final int tileSize = originalTileSize * scale; // 48x48 tile
     final int maxScreenCol = 16;
@@ -16,15 +17,20 @@ public class GamePanel extends JPanel implements Runnable
 
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
-    Player player = new Player();
+    Player player = new Player(keyHandler, this);
 
     public GamePanel()
     {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-        this.setBackground(Color.black);
+        this.setBackground(Color.gray);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+    }
+
+    public int getTileSize()
+    {
+        return tileSize;
     }
 
     public void startGameThread()
@@ -37,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable
     public void run() {
         while (gameThread != null)
         {
-            update();
+            player.update();
             repaint();
             try {
                 Thread.sleep(1000 / FPS);
@@ -46,34 +52,13 @@ public class GamePanel extends JPanel implements Runnable
             }
         }
     }
-    public void update()
-    {
-        if (keyHandler.isDownPressed())
-        {
-            player.changePosY(player.getSpeed());
-        }
-        else if (keyHandler.isLeftPressed())
-        {
-            player.changePosX(player.getSpeed() * -1);
-        }
-        else if (keyHandler.isRightPressed())
-        {
-            player.changePosX(player.getSpeed());
-        }
-        else if (keyHandler.isUpPressed())
-        {
-            player.changePosY(player.getSpeed() * -1);
-        }
-    }
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D)g;
 
-        g2.setColor(Color.white);
-
-        g2.fillRect(player.getPosX(), player.getPosY(), tileSize, tileSize);
+        player.draw(g2);
 
         g2.dispose();
     }

@@ -1,8 +1,13 @@
-abstract class Character
+import java.awt.image.BufferedImage;
+
+abstract class Entity
 {
     private int health, damage, posX, posY, speed;
 
-    public Character()
+    public BufferedImage right, left;
+    public String direction;
+
+    public Entity()
     {
         health = 100;
         damage = 10;
@@ -11,7 +16,7 @@ abstract class Character
         speed = 4;
     }
 
-    public Character(int health, int damage)
+    public Entity(int health, int damage)
     {
         this.health = health;
         this.damage = damage;
@@ -20,7 +25,7 @@ abstract class Character
         speed = 4;
     }
 
-    public Character(int health, int damage, int posX, int posY)
+    public Entity(int health, int damage, int posX, int posY)
     {
         this.health = health;
         this.damage = damage;
@@ -29,7 +34,7 @@ abstract class Character
         speed = 4;
     }
 
-    public void attack(Character other)
+    public void attack(Entity other)
     {
         other.health -= damage;
     }
@@ -63,5 +68,9 @@ abstract class Character
     public void changePosY(int dY)
     {
         posY += dY;
+    }
+    public void setPosY(int posY)
+    {
+        this.posY = posY;
     }
 }
