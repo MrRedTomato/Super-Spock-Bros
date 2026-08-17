@@ -2,10 +2,11 @@ import java.awt.image.BufferedImage;
 
 abstract class Entity
 {
-    private int health, damage, posX, posY, speed;
+    private int health, damage, posX, posY, vY, speed;
 
     public BufferedImage right, left;
     public String direction;
+    public boolean collision;
 
     public Entity()
     {
@@ -14,6 +15,8 @@ abstract class Entity
         posX = 0;
         posY = 0;
         speed = 4;
+        vY = 0;
+        collision = false;
     }
 
     public Entity(int health, int damage)
@@ -23,6 +26,8 @@ abstract class Entity
         posX = 0;
         posY = 0;
         speed = 4;
+        vY = 0;
+        collision = false;
     }
 
     public Entity(int health, int damage, int posX, int posY)
@@ -32,6 +37,8 @@ abstract class Entity
         this.posX = posX;
         this.posY = posY;
         speed = 4;
+        vY = 0;
+        collision = false;
     }
 
     public void attack(Entity other)
@@ -41,6 +48,10 @@ abstract class Entity
     public int getHealth()
     {
         return health;
+    }
+    public String getDirection()
+    {
+        return direction;
     }
     public String getPos()
     {
@@ -72,5 +83,13 @@ abstract class Entity
     public void setPosY(int posY)
     {
         this.posY = posY;
+    }
+    public int getvY()
+    {
+        return vY;
+    }
+    public void setvY(int vY)
+    {
+        this.vY = vY;
     }
 }

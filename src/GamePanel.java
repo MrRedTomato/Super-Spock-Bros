@@ -14,13 +14,20 @@ public class GamePanel extends JPanel implements Runnable
     final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
+    // Screen settings
+    final int maxWorldCol = 50;
+    final int maxWorldRow = 12;
+    final int worldWidth = maxWorldCol * tileSize;
+    final int worldHeight = maxWorldRow * tileSize;
+
     int FPS = 60;
 
-    private int displayX;
+    private int worldX;
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Player player = new Player(keyHandler, this);
     TileManager tileM;
+    public CollisionChecker cCheck;
 
     public GamePanel()
     {
@@ -30,7 +37,8 @@ public class GamePanel extends JPanel implements Runnable
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
         tileM = new TileManager(this);
-        displayX = screenWidth / 2;
+        worldX = 0;
+        cCheck = new CollisionChecker(this);
     }
 
     public int getTileSize()
@@ -38,9 +46,9 @@ public class GamePanel extends JPanel implements Runnable
         return tileSize;
     }
 
-    public int getDisplayX()
+    public int getWorldX()
     {
-        return displayX;
+        return worldX;
     }
 
     public void startGameThread()
@@ -53,19 +61,18 @@ public class GamePanel extends JPanel implements Runnable
     public void run() {
         while (gameThread != null)
         {
-            System.out.println(displayX);
             if (keyHandler.isLeftPressed())
             {
-                if (displayX < screenWidth / 2)
+                if (worldX < 0)
                 {
-                    displayX += player.getSpeed();
+                    worldX += player.getSpeed();
                 }
             }
             if (keyHandler.isRightPressed())
             {
-                if (displayX > tileM.lvlLength * tileSize * -1 + screenWidth / 2)
+                if (-worldX < maxWorldCol * tileSize)
                 {
-                    displayX -= player.getSpeed();
+                    worldX -= player.getSpeed();
                 }
             }
             player.update();

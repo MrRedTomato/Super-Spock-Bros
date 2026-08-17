@@ -7,18 +7,17 @@ import java.io.InputStreamReader;
 
 public class TileManager
 {
-    private GamePanel gamePanel;
-    private Tile[] tile;
-    private int level[][];
-    final int lvlLength = 22;
+    private GamePanel gp;
+    public Tile[] tile;
+    public int level[][];
 
     public TileManager(GamePanel gamePanel)
     {
-        this.gamePanel = gamePanel;
+        this.gp = gamePanel;
         tile = new Tile[3];
-        level = new int[gamePanel.maxScreenRow][lvlLength];
+        level = new int[gamePanel.maxWorldRow][gamePanel.maxWorldCol];
         getTileImage();
-        loadLevel();
+        loadLevel("/assets/lvl1.txt");
     }
 
     public void getTileImage()
@@ -32,18 +31,18 @@ public class TileManager
         }
     }
 
-    public void loadLevel()
+    public void loadLevel(String filePath)
     {
         try
         {
-            InputStream is = getClass().getResourceAsStream("assets/lvl1.txt");
+            InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            for (int i = 0; i < gamePanel.maxScreenRow; i++)
+            for (int i = 0; i < gp.maxWorldRow; i++)
             {
                 String line = br.readLine();
                 String[] row = line.split(" ");
-                for (int j = 0; j < lvlLength; j++)
+                for (int j = 0; j < gp.maxWorldCol; j++)
                 {
                     level[i][j] = Integer.parseInt(row[j]);
                 }
@@ -57,6 +56,7 @@ public class TileManager
 
     public void draw(Graphics2D g)
     {
+        // TODO: Optimize rendering efficiency
         for (int i = 0; i < level.length; i++)
         {
             for (int j = 0; j < level[i].length; j++)
@@ -64,7 +64,7 @@ public class TileManager
                 int num = level[i][j];
                 if (num > 0)
                 {
-                    g.drawImage(tile[num].getImage(), j * gamePanel.tileSize + gamePanel.getDisplayX(), i * gamePanel.tileSize, gamePanel.tileSize, gamePanel.tileSize, null);
+                    g.drawImage(tile[num].getImage(), j * gp.tileSize + gp.getWorldX() + gp.screenWidth / 2, i * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
             }
         }
