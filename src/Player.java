@@ -10,7 +10,7 @@ public class Player extends Entity
     private boolean jumped;
     private int jumpStrength;
     public Player(KeyHandler keyHandler, GamePanel gamePanel) {
-        super(100, 10, gamePanel.screenWidth / 2, 200);
+        super(gamePanel.screenWidth / 2, 200);
         this.gp = gamePanel;
         this.keyHandler = keyHandler;
         getPlayerImage();

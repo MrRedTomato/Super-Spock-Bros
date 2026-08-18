@@ -23,11 +23,14 @@ public class CollisionChecker
         {
             if ((entityBottom + entity.getvY()) / gp.tileSize < gp.maxScreenRow)
                 entityBottomRow = (entityBottom + entity.getvY()) / gp.tileSize;
+            if (entityRightCol == gp.maxWorldCol)
+                entityRightCol--;
             tileNum1 = gp.tileM.level[entityBottomRow][entityLeftCol];
             tileNum2 = gp.tileM.level[entityBottomRow][entityRightCol];
-            if ((tileNum1 > 0 || tileNum2 > 0) && (entityBottom + entity.getvY()) <= (entityBottomRow * gp.tileSize + 16))
+            if ((tileNum1 > 0 || tileNum2 > 0) && (entityBottom < (entityBottomRow * gp.tileSize) && entityBottom + entity.getvY() >= (entityBottomRow * gp.tileSize)))
             {
                 //System.out.println("Bottom: " + entityBottomRow + ", Left: " + entityLeftCol + ", Right: " + entityRightCol);
+//                gp.player.setPosY(entityBottomRow * gp.tileSize);
                 entity.collision = true;
             }
         }

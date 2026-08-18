@@ -61,19 +61,13 @@ public class GamePanel extends JPanel implements Runnable
     public void run() {
         while (gameThread != null)
         {
-            if (keyHandler.isLeftPressed())
+            if (keyHandler.isLeftPressed() && worldX < 0)
             {
-                if (worldX < 0)
-                {
-                    worldX += player.getSpeed();
-                }
+                worldX += player.getSpeed();
             }
-            if (keyHandler.isRightPressed())
+            if (keyHandler.isRightPressed() && -worldX < (maxWorldCol - 1) * tileSize)
             {
-                if (-worldX < maxWorldCol * tileSize)
-                {
-                    worldX -= player.getSpeed();
-                }
+                worldX -= player.getSpeed();
             }
             player.update();
             repaint();
