@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable
     Player player = new Player(keyHandler, this);
     TileManager tileM;
     public CollisionChecker cCheck;
+    ItemManager iManager;
 
     public GamePanel()
     {
@@ -39,11 +40,7 @@ public class GamePanel extends JPanel implements Runnable
         tileM = new TileManager(this);
         worldX = 0;
         cCheck = new CollisionChecker(this);
-    }
-
-    public int getTileSize()
-    {
-        return tileSize;
+        iManager = new ItemManager(this);
     }
 
     public int getWorldX()
@@ -84,6 +81,7 @@ public class GamePanel extends JPanel implements Runnable
 
         Graphics2D g2 = (Graphics2D)g;
 
+        iManager.draw(g2);
         tileM.draw(g2);
         player.draw(g2);
 
