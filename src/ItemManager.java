@@ -18,21 +18,6 @@ public class ItemManager
         items.get(0).posY = 9 * gp.tileSize;
     }
 
-    public void getItemImages()
-    {
-        for (int i = 0; i < items.size(); i++)
-        {
-            if (items.get(i).direction.equals("right"))
-            {
-                items.get(i).setImage("/assets/phaser_right.png");
-            }
-            else
-            {
-                items.get(i).setImage("/assets/phaser_left.png");
-            }
-        }
-    }
-
     public void checkCollision()
     {
         Point tLeft = new Point(-gp.getWorldX() + gp.tileSize, gp.player.getPosY());
@@ -48,25 +33,37 @@ public class ItemManager
 
             if (left <= tLeft.x && right >= tLeft.x && top <= tLeft.y && bottom >= tLeft.y)
             {
-                System.out.println("Removed item " + i);
+                if (items.get(i) instanceof Phaser)
+                {
+                    gp.player.pEquipped = true;
+                }
                 items.remove(i);
                 i--;
             }
             else if (left <= bLeft.x && right >= bLeft.x && top <= bLeft.y && bottom >= bLeft.y)
             {
-                System.out.println("Removed item " + i);
+                if (items.get(i) instanceof Phaser)
+                {
+                    gp.player.pEquipped = true;
+                }
                 items.remove(i);
                 i--;
             }
             else if (left <= tRight.x && right >= tRight.x && top <= tRight.y && bottom >= tRight.y)
             {
-                System.out.println("Removed item " + i);
+                if (items.get(i) instanceof Phaser)
+                {
+                    gp.player.pEquipped = true;
+                }
                 items.remove(i);
                 i--;
             }
             else if (left <= bRight.x && right >= bRight.x && top <= bRight.y && bottom >= bRight.y)
             {
-                System.out.println("Removed item " + i);
+                if (items.get(i) instanceof Phaser)
+                {
+                    gp.player.pEquipped = true;
+                }
                 items.remove(i);
                 i--;
             }
@@ -75,7 +72,6 @@ public class ItemManager
 
     public void draw(Graphics2D g)
     {
-        getItemImages();
         for (int i = 0; i < items.size(); i++)
         {
             Item item = items.get(i);

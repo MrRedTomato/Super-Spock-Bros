@@ -9,6 +9,8 @@ public class Player extends Entity
     private GamePanel gp;
     private boolean jumped;
     private int jumpStrength;
+    public boolean pEquipped;
+    public BufferedImage pRight, pLeft;
     public Player(KeyHandler keyHandler, GamePanel gamePanel) {
         super(gamePanel.screenWidth / 2, 200);
         this.gp = gamePanel;
@@ -17,6 +19,7 @@ public class Player extends Entity
         direction = "right";
         jumpStrength = 12;
         jumped = false;
+        pEquipped = false;
     }
 
     public void getPlayerImage()
@@ -24,6 +27,8 @@ public class Player extends Entity
         try {
             right = ImageIO.read(getClass().getResourceAsStream("assets/pixel_spock_right.png"));
             left = ImageIO.read(getClass().getResourceAsStream("assets/pixel_spock_left.png"));
+            pRight = ImageIO.read(getClass().getResourceAsStream("assets/phaser_right.png"));
+            pLeft = ImageIO.read(getClass().getResourceAsStream("assets/phaser_left.png"));
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -75,11 +80,25 @@ public class Player extends Entity
 
         if (direction.equals("right"))
         {
-            image = right;
+            if (pEquipped)
+            {
+                image = pRight;
+            }
+            else
+            {
+                image = right;
+            }
         }
         else
         {
-            image = left;
+            if (pEquipped)
+            {
+                image = pLeft;
+            }
+            else
+            {
+                image = left;
+            }
         }
 
         g.drawImage(image, getPosX(), getPosY(), gp.tileSize, gp.tileSize, null);

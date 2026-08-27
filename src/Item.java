@@ -5,7 +5,6 @@ import java.io.IOException;
 public class Item
 {
     public BufferedImage image;
-    public String direction = "right";
     public int posX, posY;
 
     public void setImage(String filePath)
