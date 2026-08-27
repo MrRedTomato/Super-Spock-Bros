@@ -26,17 +26,50 @@ public class ItemManager
             {
                 items.get(i).setImage("/assets/phaser_right.png");
             }
+            else
+            {
+                items.get(i).setImage("/assets/phaser_left.png");
+            }
         }
     }
 
     public void checkCollision()
     {
-        int playerRight = gp.player.getPosX() + gp.tileSize;
-        int playerLeft = gp.player.getPosX();
-//        int playerTop = gp.player
+        Point tLeft = new Point(-gp.getWorldX() + gp.tileSize, gp.player.getPosY());
+        Point bLeft = new Point(-gp.getWorldX() + gp.tileSize, gp.player.getPosY() + gp.tileSize);
+        Point tRight = new Point(gp.tileSize - gp.getWorldX() + gp.tileSize, gp.player.getPosY());
+        Point bRight = new Point(gp.tileSize - gp.getWorldX() + gp.tileSize, gp.player.getPosY() + gp.tileSize);
         for (int i = 0; i < items.size(); i++)
         {
-            if (gp.player.direction == "right" && gp.player.getPosX() + gp.player.getSpeed() )
+            int left = items.get(i).posX;
+            int right = items.get(i).posX + gp.tileSize;
+            int top = items.get(i).posY;
+            int bottom = items.get(i).posY + gp.tileSize;
+
+            if (left <= tLeft.x && right >= tLeft.x && top <= tLeft.y && bottom >= tLeft.y)
+            {
+                System.out.println("Removed item " + i);
+                items.remove(i);
+                i--;
+            }
+            else if (left <= bLeft.x && right >= bLeft.x && top <= bLeft.y && bottom >= bLeft.y)
+            {
+                System.out.println("Removed item " + i);
+                items.remove(i);
+                i--;
+            }
+            else if (left <= tRight.x && right >= tRight.x && top <= tRight.y && bottom >= tRight.y)
+            {
+                System.out.println("Removed item " + i);
+                items.remove(i);
+                i--;
+            }
+            else if (left <= bRight.x && right >= bRight.x && top <= bRight.y && bottom >= bRight.y)
+            {
+                System.out.println("Removed item " + i);
+                items.remove(i);
+                i--;
+            }
         }
     }
 
@@ -46,7 +79,7 @@ public class ItemManager
         for (int i = 0; i < items.size(); i++)
         {
             Item item = items.get(i);
-            g.drawImage(item.image, item.posX + gp.getWorldX() + gp.screenWidth / 2, item.posY, gp.tileSize, gp.tileSize, null);
+            g.drawImage(item.image, item.posX + gp.getWorldX() + gp.screenWidth / 2 - gp.tileSize, item.posY, gp.tileSize, gp.tileSize, null);
         }
     }
 }

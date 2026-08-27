@@ -32,6 +32,7 @@ public class Player extends Entity
 
     public void update()
     {
+        gp.iManager.checkCollision();
         if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize || collision)
         {
             setvY(0);
