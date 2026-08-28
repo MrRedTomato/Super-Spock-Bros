@@ -27,6 +27,7 @@ public class GamePanel extends JPanel implements Runnable
     TileManager tileM;
     public CollisionChecker cCheck;
     ItemManager iManager;
+    BoltManager bManager;
 
     public GamePanel()
     {
@@ -39,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable
         worldX = 0;
         cCheck = new CollisionChecker(this);
         iManager = new ItemManager(this);
+        bManager = new BoltManager(this);
     }
 
     public int getWorldX()
@@ -56,11 +58,11 @@ public class GamePanel extends JPanel implements Runnable
     public void run() {
         while (gameThread != null)
         {
-            if (keyHandler.isLeftPressed() && worldX < 0)
+            if (keyHandler.leftPressed && worldX < 0)
             {
                 worldX += player.getSpeed();
             }
-            if (keyHandler.isRightPressed() && -worldX < (maxWorldCol - 1) * tileSize)
+            if (keyHandler.rightPressed && -worldX < (maxWorldCol - 1) * tileSize)
             {
                 worldX -= player.getSpeed();
             }
@@ -79,6 +81,7 @@ public class GamePanel extends JPanel implements Runnable
 
         Graphics2D g2 = (Graphics2D)g;
 
+        bManager.draw(g2);
         iManager.draw(g2);
         tileM.draw(g2);
         player.draw(g2);

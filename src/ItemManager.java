@@ -30,12 +30,12 @@ public class ItemManager
             int right = items.get(i).posX + gp.tileSize;
             int top = items.get(i).posY;
             int bottom = items.get(i).posY + gp.tileSize;
-
             if (left <= tLeft.x && right >= tLeft.x && top <= tLeft.y && bottom >= tLeft.y)
             {
                 if (items.get(i) instanceof Phaser)
                 {
                     gp.player.pEquipped = true;
+                    gp.player.shotsLeft = 3;
                 }
                 items.remove(i);
                 i--;
@@ -45,6 +45,7 @@ public class ItemManager
                 if (items.get(i) instanceof Phaser)
                 {
                     gp.player.pEquipped = true;
+                    gp.player.shotsLeft = 3;
                 }
                 items.remove(i);
                 i--;
@@ -54,6 +55,7 @@ public class ItemManager
                 if (items.get(i) instanceof Phaser)
                 {
                     gp.player.pEquipped = true;
+                    gp.player.shotsLeft = 3;
                 }
                 items.remove(i);
                 i--;
@@ -63,6 +65,7 @@ public class ItemManager
                 if (items.get(i) instanceof Phaser)
                 {
                     gp.player.pEquipped = true;
+                    gp.player.shotsLeft = 3;
                 }
                 items.remove(i);
                 i--;

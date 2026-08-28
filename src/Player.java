@@ -11,6 +11,9 @@ public class Player extends Entity
     private int jumpStrength;
     public boolean pEquipped;
     public BufferedImage pRight, pLeft;
+    public boolean phaserFired;
+    public int shotsLeft;
+
     public Player(KeyHandler keyHandler, GamePanel gamePanel) {
         super(gamePanel.screenWidth / 2, 200);
         this.gp = gamePanel;
@@ -20,6 +23,8 @@ public class Player extends Entity
         jumpStrength = 12;
         jumped = false;
         pEquipped = false;
+        phaserFired = false;
+        shotsLeft = 3;
     }
 
     public void getPlayerImage()
@@ -38,6 +43,7 @@ public class Player extends Entity
     public void update()
     {
         gp.iManager.checkCollision();
+        gp.bManager.moveBolts();
         if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize || collision)
         {
             setvY(0);
@@ -55,19 +61,36 @@ public class Player extends Entity
                 setvY(gp.terminalV);
             }
         }
-        if (keyHandler.isUpPressed() && !jumped)
+        if (keyHandler.upPressed && !jumped)
         {
             direction = "jump";
             setvY(jumpStrength * -1);
             jumped = true;
         }
-        if (keyHandler.isRightPressed())
+        if (keyHandler.rightPressed)
         {
             direction = "right";
         }
-        if (keyHandler.isLeftPressed())
+        if (keyHandler.leftPressed)
         {
             direction = "left";
+        }
+        if (pEquipped && keyHandler.spacePressed && shotsLeft > 0)
+        {
+            if (!phaserFired)
+            {
+                gp.bManager.genBolt();
+                phaserFired = true;
+                shotsLeft--;
+            }
+        }
+        if (!keyHandler.spacePressed)
+        {
+            phaserFired = false;
+        }
+        if (shotsLeft == 0)
+        {
+            pEquipped = false;
         }
 
         collision = false;
