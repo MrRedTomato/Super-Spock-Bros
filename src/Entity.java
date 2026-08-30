@@ -2,7 +2,7 @@ import java.awt.image.BufferedImage;
 
 abstract class Entity
 {
-    private int posX, posY, vY, speed;
+    public int posX, posY, vY, speed;
 
     public BufferedImage right, left;
     public String direction;

@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable
     public CollisionChecker cCheck;
     ItemManager iManager;
     BoltManager bManager;
+    EnemyManager eManager;
 
     public GamePanel()
     {
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable
         cCheck = new CollisionChecker(this);
         iManager = new ItemManager(this);
         bManager = new BoltManager(this);
+        eManager = new EnemyManager(this);
     }
 
     public int getWorldX()
@@ -82,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable
         Graphics2D g2 = (Graphics2D)g;
 
         bManager.draw(g2);
+        eManager.draw(g2);
         iManager.draw(g2);
         tileM.draw(g2);
         player.draw(g2);
