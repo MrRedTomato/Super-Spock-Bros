@@ -1,5 +1,8 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable
 {
@@ -18,6 +21,8 @@ public class GamePanel extends JPanel implements Runnable
     final int maxWorldCol = 50;
     final int maxWorldRow = 12;
 
+    public BufferedImage gameOverScreen;
+
     int FPS = 60;
 
     private int worldX;
@@ -26,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable
     Player player = new Player(keyHandler, this);
     TileManager tileM;
     public CollisionChecker cCheck;
+    public boolean gameOver = false;
     ItemManager iManager;
     BoltManager bManager;
     EnemyManager eManager;
@@ -43,6 +49,11 @@ public class GamePanel extends JPanel implements Runnable
         iManager = new ItemManager(this);
         bManager = new BoltManager(this);
         eManager = new EnemyManager(this);
+
+        try
+        {
+            gameOverScreen = ImageIO.read(getClass().getResourceAsStream("assets/gameover.png"));
+        } catch (IOException e) {}
     }
 
     public int getWorldX()
@@ -58,7 +69,7 @@ public class GamePanel extends JPanel implements Runnable
 
     @Override
     public void run() {
-        while (gameThread != null)
+        while (gameThread != null && !gameOver)
         {
             if (keyHandler.leftPressed && worldX < 0)
             {
@@ -83,11 +94,18 @@ public class GamePanel extends JPanel implements Runnable
 
         Graphics2D g2 = (Graphics2D)g;
 
-        bManager.draw(g2);
-        eManager.draw(g2);
-        iManager.draw(g2);
-        tileM.draw(g2);
-        player.draw(g2);
+        if (gameOver)
+        {
+            g2.drawImage(gameOverScreen, 0, 0, screenWidth, screenHeight, null);
+        }
+        else
+        {
+            bManager.draw(g2);
+            eManager.draw(g2);
+            iManager.draw(g2);
+            tileM.draw(g2);
+            player.draw(g2);
+        }
 
         g2.dispose();
     }

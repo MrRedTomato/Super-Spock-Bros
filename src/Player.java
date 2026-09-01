@@ -44,7 +44,12 @@ public class Player extends Entity
     {
         gp.iManager.checkCollision();
         gp.bManager.moveBolts();
-        if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize || collision)
+        if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize)
+        {
+            gp.gameOver = true;
+            return;
+        }
+        if (collision)
         {
             setvY(0);
             jumped = false;
@@ -52,13 +57,13 @@ public class Player extends Entity
         else
         {
             changePosY(getvY());
-            if (getvY() < gp.terminalV)
+            if (vY < gp.terminalV)
             {
-                setvY(getvY() + gp.gravity);
+                vY += gp.gravity;
             }
             else
             {
-                setvY(gp.terminalV);
+                vY = gp.terminalV;
             }
         }
         if (keyHandler.upPressed && !jumped)
