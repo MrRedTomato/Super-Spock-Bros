@@ -44,6 +44,7 @@ public class Player extends Entity
     {
         gp.iManager.checkCollision();
         gp.eManager.checkCollision();
+        gp.eManager.moveEnemies();
         gp.bManager.moveBolts();
         if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize)
         {

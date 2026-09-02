@@ -10,11 +10,53 @@ public class EnemyManager {
         enemies = new ArrayList<>();
 
         Enemy enemy = new Enemy();
-        enemy.posX = gp.tileSize * 32;
+        enemy.posX = gp.tileSize * 35;
         enemy.posY = gp.tileSize * 9;
         enemies.add(enemy);
 
         this.gp = gp;
+    }
+
+    public void moveEnemies()
+    {
+        for (Enemy enemy : enemies)
+        {
+            if (!checkRight(enemy) && !checkLeft(enemy))
+            {
+                enemy.direction = "none";
+            }
+            else if (enemy.direction.equals("right") && !checkRight(enemy))
+            {
+                enemy.direction = "left";
+            }
+            else if (enemy.direction.equals("left") && !checkLeft(enemy))
+            {
+                enemy.direction = "right";
+            }
+
+            if (enemy.direction.equals("right"))
+            {
+                enemy.posX += enemy.speed;
+            }
+            else if (enemy.direction.equals("left"))
+            {
+                enemy.posX -= enemy.speed;
+            }
+        }
+    }
+
+    private boolean checkRight(Enemy enemy)
+    {
+        int col = enemy.posX / gp.tileSize;
+        int row = enemy.posY / gp.tileSize;
+        return gp.tileM.level[row + 1][col + 1] == 1;
+    }
+
+    private boolean checkLeft(Enemy enemy)
+    {
+        int col = enemy.posX / gp.tileSize;
+        int row = enemy.posY / gp.tileSize;
+        return gp.tileM.level[row + 1][col] == 1;
     }
 
     public void checkCollision()
