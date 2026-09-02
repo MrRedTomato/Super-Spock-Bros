@@ -64,7 +64,7 @@ public class TileManager
                 int num = level[i][j];
                 if (num > 0)
                 {
-                    g.drawImage(tile[num].getImage(), j * gp.tileSize + gp.getWorldX() + gp.screenWidth / 2, i * gp.tileSize, gp.tileSize, gp.tileSize, null);
+                    g.drawImage(tile[num].getImage(), j * gp.tileSize + gp.worldX + gp.screenWidth / 2, i * gp.tileSize, gp.tileSize, gp.tileSize, null);
                 }
             }
         }

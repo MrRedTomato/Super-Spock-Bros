@@ -25,7 +25,7 @@ public class GamePanel extends JPanel implements Runnable
 
     int FPS = 60;
 
-    private int worldX;
+    public int worldX;
     KeyHandler keyHandler = new KeyHandler();
     Thread gameThread;
     Player player = new Player(keyHandler, this);
@@ -54,11 +54,6 @@ public class GamePanel extends JPanel implements Runnable
         {
             gameOverScreen = ImageIO.read(getClass().getResourceAsStream("assets/gameover.png"));
         } catch (IOException e) {}
-    }
-
-    public int getWorldX()
-    {
-        return worldX;
     }
 
     public void startGameThread()

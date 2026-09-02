@@ -100,12 +100,41 @@ public class EnemyManager {
         }
     }
 
+    public void attackPlayer()
+    {
+        int playerTop = gp.player.posY;
+        int playerBottom = gp.player.posY + gp.tileSize;
+        int playerRight = gp.player.posX + gp.tileSize - gp.worldX - gp.screenWidth / 2;
+        int playerLeft = gp.player.posX - gp.worldX - gp.screenWidth / 2;
+
+        boolean touchingPlayer = false;
+        for (Enemy enemy : enemies)
+        {
+            if (playerTop >= enemy.posY - gp.tileSize &&
+                    playerBottom <= enemy.posY + gp.tileSize && playerRight >= enemy.posX &&
+                    playerLeft <= enemy.posX + gp.tileSize)
+            {
+                touchingPlayer = true;
+            }
+        }
+
+        if (!gp.player.wasAttacked && touchingPlayer)
+        {
+            gp.player.health--;
+            gp.player.wasAttacked = true;
+        }
+        else if (!touchingPlayer)
+        {
+            gp.player.wasAttacked = false;
+        }
+    }
+
     public void draw(Graphics2D g)
     {
         for (int i = 0; i < enemies.size(); i++)
         {
             Enemy enemy = enemies.get(i);
-            g.drawImage(enemy.right, enemy.posX + gp.getWorldX() + gp.screenWidth / 2, enemy.posY, gp.tileSize, gp.tileSize, null);
+            g.drawImage(enemy.right, enemy.posX + gp.worldX + gp.screenWidth / 2, enemy.posY, gp.tileSize, gp.tileSize, null);
         }
     }
 }

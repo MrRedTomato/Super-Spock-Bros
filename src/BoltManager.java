@@ -55,13 +55,13 @@ public class BoltManager
         if (gp.player.direction == "right")
         {
             bolt.direction = "right";
-            bolt.x = 2 * gp.tileSize - gp.getWorldX();
+            bolt.x = 2 * gp.tileSize - gp.worldX;
         }
         else if (gp.player.direction == "left")
         {
             bolt.direction = "left";
 
-            bolt.x = -gp.getWorldX();
+            bolt.x = -gp.worldX;
         }
         bolts.add(bolt);
     }
@@ -80,7 +80,7 @@ public class BoltManager
             {
                 img = left;
             }
-            g.drawImage(img, bolt.x + gp.getWorldX() + gp.screenWidth / 2 - gp.tileSize,
+            g.drawImage(img, bolt.x + gp.worldX + gp.screenWidth / 2 - gp.tileSize,
                     bolt.y, gp.tileSize, gp.tileSize / 2, null);
         }
     }

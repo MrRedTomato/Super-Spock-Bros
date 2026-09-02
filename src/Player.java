@@ -12,6 +12,7 @@ public class Player extends Entity
     public boolean pEquipped;
     public BufferedImage pRight, pLeft;
     public boolean phaserFired;
+    public boolean wasAttacked;
     public int shotsLeft;
 
     public Player(KeyHandler keyHandler, GamePanel gamePanel) {
@@ -25,6 +26,7 @@ public class Player extends Entity
         pEquipped = false;
         phaserFired = false;
         shotsLeft = 3;
+        wasAttacked = false;
     }
 
     public void getPlayerImage()
@@ -45,7 +47,14 @@ public class Player extends Entity
         gp.iManager.checkCollision();
         gp.eManager.checkCollision();
         gp.eManager.moveEnemies();
+        gp.eManager.attackPlayer();
         gp.bManager.moveBolts();
+
+        if (health < 1)
+        {
+            gp.gameOver = true;
+            return;
+        }
         if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize)
         {
             gp.gameOver = true;

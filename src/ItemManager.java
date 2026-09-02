@@ -20,10 +20,10 @@ public class ItemManager
 
     public void checkCollision()
     {
-        Point tLeft = new Point(-gp.getWorldX() + gp.tileSize, gp.player.getPosY());
-        Point bLeft = new Point(-gp.getWorldX() + gp.tileSize, gp.player.getPosY() + gp.tileSize);
-        Point tRight = new Point(gp.tileSize - gp.getWorldX() + gp.tileSize, gp.player.getPosY());
-        Point bRight = new Point(gp.tileSize - gp.getWorldX() + gp.tileSize, gp.player.getPosY() + gp.tileSize);
+        Point tLeft = new Point(-gp.worldX + gp.tileSize, gp.player.getPosY());
+        Point bLeft = new Point(-gp.worldX + gp.tileSize, gp.player.getPosY() + gp.tileSize);
+        Point tRight = new Point(gp.tileSize - gp.worldX + gp.tileSize, gp.player.getPosY());
+        Point bRight = new Point(gp.tileSize - gp.worldX + gp.tileSize, gp.player.getPosY() + gp.tileSize);
         for (int i = 0; i < items.size(); i++)
         {
             int left = items.get(i).posX;
@@ -78,7 +78,7 @@ public class ItemManager
         for (int i = 0; i < items.size(); i++)
         {
             Item item = items.get(i);
-            g.drawImage(item.image, item.posX + gp.getWorldX() + gp.screenWidth / 2 - gp.tileSize, item.posY, gp.tileSize, gp.tileSize, null);
+            g.drawImage(item.image, item.posX + gp.worldX + gp.screenWidth / 2 - gp.tileSize, item.posY, gp.tileSize, gp.tileSize, null);
         }
     }
 }

@@ -10,8 +10,8 @@ public class CollisionChecker
     public void checkTile(Entity entity)
     {
         int entityBottom = entity.getPosY() + gp.tileSize;
-        int entityLeft = -gp.getWorldX();
-        int entityRight = gp.tileSize - gp.getWorldX();
+        int entityLeft = -gp.worldX;
+        int entityRight = gp.tileSize - gp.worldX;
 
         int entityBottomRow = entityBottom / gp.tileSize;
         int entityLeftCol = entityLeft / gp.tileSize;
