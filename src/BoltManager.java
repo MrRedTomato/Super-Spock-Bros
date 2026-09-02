@@ -80,7 +80,8 @@ public class BoltManager
             {
                 img = left;
             }
-            g.drawImage(img, bolt.x + gp.getWorldX() + gp.screenWidth / 2 - gp.tileSize, bolt.y, gp.tileSize, gp.tileSize / 2, null);
+            g.drawImage(img, bolt.x + gp.getWorldX() + gp.screenWidth / 2 - gp.tileSize,
+                    bolt.y, gp.tileSize, gp.tileSize / 2, null);
         }
     }
 }

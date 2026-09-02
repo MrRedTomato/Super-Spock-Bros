@@ -43,6 +43,7 @@ public class Player extends Entity
     public void update()
     {
         gp.iManager.checkCollision();
+        gp.eManager.checkCollision();
         gp.bManager.moveBolts();
         if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize)
         {
@@ -68,7 +69,6 @@ public class Player extends Entity
         }
         if (keyHandler.upPressed && !jumped)
         {
-            direction = "jump";
             setvY(jumpStrength * -1);
             jumped = true;
         }

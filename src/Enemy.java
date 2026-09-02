@@ -9,10 +9,6 @@ public class Enemy extends Entity
         try
         {
             right = ImageIO.read(getClass().getResourceAsStream("/assets/klingon.png"));
-        } catch (IOException e)
-        {
-
-        }
-
+        } catch (IOException e) {}
     }
 }
