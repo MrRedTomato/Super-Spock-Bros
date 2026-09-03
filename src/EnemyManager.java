@@ -8,13 +8,23 @@ public class EnemyManager {
     public EnemyManager(GamePanel gp)
     {
         enemies = new ArrayList<>();
-
-        Enemy enemy = new Enemy();
-        enemy.posX = gp.tileSize * 35;
-        enemy.posY = gp.tileSize * 9;
-        enemies.add(enemy);
-
         this.gp = gp;
+        setEnemies();
+    }
+
+    public void setEnemies()
+    {
+        if (gp.lvl == 1)
+        {
+            Enemy enemy1 = new Enemy();
+            Enemy enemy2 = new Enemy();
+            enemy1.posX = gp.tileSize * 35;
+            enemy1.posY = gp.tileSize * 9;
+            enemy2.posX = gp.tileSize * 2;
+            enemy2.posY = gp.tileSize * 9;
+            enemies.add(enemy1);
+            enemies.add(enemy2);
+        }
     }
 
     public void moveEnemies()

@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable
     ItemManager iManager;
     BoltManager bManager;
     EnemyManager eManager;
+    public int lvl;
 
     public GamePanel()
     {
@@ -45,6 +46,7 @@ public class GamePanel extends JPanel implements Runnable
         this.setFocusable(true);
         tileM = new TileManager(this);
         worldX = 0;
+        lvl = 1;
         cCheck = new CollisionChecker(this);
         iManager = new ItemManager(this);
         bManager = new BoltManager(this);

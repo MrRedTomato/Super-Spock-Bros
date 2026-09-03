@@ -12,10 +12,18 @@ public class ItemManager
         items = new ArrayList<>();
 
         // Populate items array
-        Phaser phaser = new Phaser();
-        items.add(phaser);
-        items.get(0).posX = 10 * gp.tileSize;
-        items.get(0).posY = 9 * gp.tileSize;
+        setItems();
+    }
+
+    public void setItems()
+    {
+        if (gp.lvl == 1)
+        {
+            Phaser phaser = new Phaser();
+            phaser.posX = 11 * gp.tileSize;
+            phaser.posY = 9 * gp.tileSize;
+            items.add(phaser);
+        }
     }
 
     public void checkCollision()
