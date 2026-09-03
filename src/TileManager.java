@@ -15,7 +15,6 @@ public class TileManager
     {
         this.gp = gamePanel;
         tile = new Tile[3];
-        level = new int[gamePanel.maxWorldRow][gamePanel.maxWorldCol];
         getTileImage();
         loadLevel("/assets/lvl1.txt");
     }
@@ -38,10 +37,21 @@ public class TileManager
             InputStream is = getClass().getResourceAsStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
-            for (int i = 0; i < gp.maxWorldRow; i++)
+            String line = br.readLine();
+            String[] row = line.split(" ");
+            gp.maxWorldCol = row.length;
+
+            level = new int[gp.maxWorldRow][gp.maxWorldCol];
+
+            for (int i = 0; i < gp.maxWorldCol; i++)
             {
-                String line = br.readLine();
-                String[] row = line.split(" ");
+                level[0][i] = Integer.parseInt(row[i]);
+            }
+
+            for (int i = 1; i < gp.maxWorldRow; i++)
+            {
+                line = br.readLine();
+                row = line.split(" ");
                 for (int j = 0; j < gp.maxWorldCol; j++)
                 {
                     level[i][j] = Integer.parseInt(row[j]);
