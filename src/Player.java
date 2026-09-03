@@ -11,6 +11,7 @@ public class Player extends Entity
     private int jumpStrength;
     public boolean pEquipped;
     public BufferedImage pRight, pLeft;
+    public BufferedImage heart;
     public boolean phaserFired;
     public boolean wasAttacked;
     public int shotsLeft;
@@ -36,6 +37,7 @@ public class Player extends Entity
             left = ImageIO.read(getClass().getResourceAsStream("assets/pixel_spock_left.png"));
             pRight = ImageIO.read(getClass().getResourceAsStream("assets/phaser_right.png"));
             pLeft = ImageIO.read(getClass().getResourceAsStream("assets/phaser_left.png"));
+            heart = ImageIO.read(getClass().getResourceAsStream("assets/heart.png"));
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -140,5 +142,9 @@ public class Player extends Entity
         }
 
         g.drawImage(image, getPosX(), getPosY(), gp.tileSize, gp.tileSize, null);
+        for (int i = 0; i < health; i++)
+        {
+            g.drawImage(heart, i * (gp.tileSize + gp.scale), 0, gp.tileSize, gp.tileSize, null);
+        }
     }
 }
