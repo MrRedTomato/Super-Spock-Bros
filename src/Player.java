@@ -144,7 +144,7 @@ public class Player extends Entity
         g.drawImage(image, getPosX(), getPosY(), gp.tileSize, gp.tileSize, null);
         for (int i = 0; i < health; i++)
         {
-            g.drawImage(heart, i * (gp.tileSize + gp.scale), 0, gp.tileSize, gp.tileSize, null);
+            g.drawImage(heart, gp.scale + i * (gp.tileSize + gp.scale), 0, gp.tileSize, gp.tileSize, null);
         }
     }
 }
