@@ -3,6 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GamePanel extends JPanel implements Runnable
 {
@@ -22,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable
     final int maxWorldRow = 12;
 
     public BufferedImage gameOverScreen;
+    public BufferedImage exitImage;
 
     int FPS = 60;
 
@@ -36,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable
     BoltManager bManager;
     EnemyManager eManager;
     public int lvl;
+    public Point[] exits;
 
     public GamePanel()
     {
@@ -47,15 +50,32 @@ public class GamePanel extends JPanel implements Runnable
         tileM = new TileManager(this);
         worldX = 0;
         lvl = 1;
+        exits = new Point[2];
         cCheck = new CollisionChecker(this);
         iManager = new ItemManager(this);
         bManager = new BoltManager(this);
         eManager = new EnemyManager(this);
 
+        exits[0] = new Point(53, 9);
+        exits[1] = new Point(53, 9);
+
         try
         {
             gameOverScreen = ImageIO.read(getClass().getResourceAsStream("assets/gameover.png"));
+            exitImage = ImageIO.read(getClass().getResourceAsStream("assets/exit.png"));
         } catch (IOException e) {}
+    }
+
+    public void reset()
+    {
+        worldX = 0;
+        player.health = 3;
+        player.posY = 200;
+        eManager.enemies = new ArrayList<>();
+        if (lvl == 2)
+        {
+            tileM.loadLevel("assets/lvl2.txt");
+        }
     }
 
     public void startGameThread()
@@ -97,6 +117,7 @@ public class GamePanel extends JPanel implements Runnable
         }
         else
         {
+            g2.drawImage(exitImage, exits[lvl - 1].x * tileSize + worldX + screenWidth / 2, exits[lvl - 1].y * tileSize, tileSize, tileSize, null);
             bManager.draw(g2);
             eManager.draw(g2);
             iManager.draw(g2);

@@ -15,6 +15,7 @@ public class Player extends Entity
     public boolean phaserFired;
     public boolean wasAttacked;
     public int shotsLeft;
+    public int health;
 
     public Player(KeyHandler keyHandler, GamePanel gamePanel) {
         super(gamePanel.screenWidth / 2, 200);
@@ -28,6 +29,7 @@ public class Player extends Entity
         phaserFired = false;
         shotsLeft = 3;
         wasAttacked = false;
+        health = 3;
     }
 
     public void getPlayerImage()
@@ -56,6 +58,14 @@ public class Player extends Entity
         {
             gp.gameOver = true;
             return;
+        }
+        if (posX - gp.worldX - gp.screenWidth / 2 >= gp.exits[gp.lvl - 1].x * gp.tileSize - gp.scale
+                && posX - gp.worldX - gp.screenWidth / 2 <= gp.exits[gp.lvl - 1].x * gp.tileSize + gp.scale
+                && posY >= gp.exits[gp.lvl - 1].y * gp.tileSize - gp.scale
+                && posY <= gp.exits[gp.lvl - 1].y * gp.tileSize + gp.scale)
+        {
+            gp.lvl++;
+            gp.reset();
         }
         if (getPosY() + getvY() >= gp.screenHeight - gp.tileSize)
         {

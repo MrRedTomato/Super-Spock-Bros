@@ -7,7 +7,6 @@ abstract class Entity
     public BufferedImage right, left;
     public String direction;
     public boolean collision;
-    public int health;
 
     public Entity()
     {
@@ -16,7 +15,6 @@ abstract class Entity
         speed = 4;
         vY = 0;
         collision = false;
-        health = 3;
     }
 
     public Entity(int posX, int posY)
@@ -26,7 +24,6 @@ abstract class Entity
         speed = 4;
         vY = 0;
         collision = false;
-        health = 3;
     }
 
     public String getDirection()

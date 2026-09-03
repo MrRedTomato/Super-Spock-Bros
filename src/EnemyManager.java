@@ -77,16 +77,16 @@ public class EnemyManager {
             for (int j = 0; j < gp.bManager.bolts.size(); j++)
             {
                 Bolt bolt = gp.bManager.bolts.get(j);
-                int boltRight = bolt.x + gp.tileSize;
-                int boltLeft = bolt.x;
-                int enemyRight = enemy.posX + gp.tileSize;
+                int boltLeft = bolt.x - gp.tileSize;
+                int boltRight = boltLeft + gp.tileSize;
                 int enemyLeft = enemy.posX;
+                int enemyRight = enemyLeft + gp.tileSize;
 
                 if (bolt.y >= enemy.posY - gp.tileSize / 2 && bolt.y <= enemy.posY + gp.tileSize)
                 {
                     if (bolt.direction.equals("right"))
                     {
-                        if (boltRight <= enemyRight && boltRight + bolt.speed >= enemyRight)
+                        if (boltLeft <= enemyRight && boltRight + bolt.speed >= enemyLeft)
                         {
                             enemies.remove(i);
                             gp.bManager.bolts.remove(j);
@@ -96,8 +96,7 @@ public class EnemyManager {
                     }
                     else
                     {
-                        // TODO: fix collision timing here
-                        if (boltLeft >= enemyRight && boltLeft - bolt.speed <= enemyRight)
+                        if (boltRight >= enemyLeft && boltLeft - bolt.speed <= enemyRight)
                         {
                             enemies.remove(i);
                             gp.bManager.bolts.remove(j);
