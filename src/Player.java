@@ -162,6 +162,20 @@ public class Player extends Entity
             g.drawImage(heart, gp.scale + i * (gp.tileSize + gp.scale), 0, gp.tileSize, gp.tileSize, null);
         }
 
-        g.drawImage(crystal, (gp.maxScreenCol - 1) * gp.tileSize - gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
+        g.drawImage(crystal, (gp.maxScreenCol - 1) * gp.tileSize - gp.tileSize / 4, gp.tileSize / 4, gp.tileSize, gp.tileSize, null);
+        int num = dilithium;
+        int i = 1;
+        while (num > 0)
+        {
+            int dig = num % 10;
+            String path = "assets/" + dig + ".png";
+            BufferedImage digit = null;
+            try
+            {
+                digit = ImageIO.read(getClass().getResourceAsStream(path));
+            } catch(IOException e) {}
+            g.drawImage(digit, (gp.maxScreenCol - i) * gp.tileSize - gp.tileSize / 2, (int)(gp.tileSize * 1.5), gp.tileSize, gp.tileSize, null);
+            num /= 10;
+        }
     }
 }
