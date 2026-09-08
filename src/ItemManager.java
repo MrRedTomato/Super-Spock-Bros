@@ -45,43 +45,23 @@ public class ItemManager
             int right = items.get(i).posX + gp.tileSize;
             int top = items.get(i).posY;
             int bottom = items.get(i).posY + gp.tileSize;
-            if (left <= tLeft.x && right >= tLeft.x && top <= tLeft.y && bottom >= tLeft.y)
+
+            if (left <= tLeft.x && right >= tLeft.x && top <= tLeft.y && bottom >= tLeft.y ||
+                    left <= bLeft.x && right >= bLeft.x && top <= bLeft.y && bottom >= bLeft.y ||
+                    left <= tRight.x && right >= tRight.x && top <= tRight.y && bottom >= tRight.y ||
+                    left <= bRight.x && right >= bRight.x && top <= bRight.y && bottom >= bRight.y)
             {
                 if (items.get(i) instanceof Phaser)
                 {
                     gp.player.pEquipped = true;
                     gp.player.shotsLeft = 3;
                 }
-                items.remove(i);
-                i--;
-            }
-            else if (left <= bLeft.x && right >= bLeft.x && top <= bLeft.y && bottom >= bLeft.y)
-            {
-                if (items.get(i) instanceof Phaser)
+
+                if (items.get(i) instanceof Dilithium)
                 {
-                    gp.player.pEquipped = true;
-                    gp.player.shotsLeft = 3;
+                    gp.player.dilithium++;
                 }
-                items.remove(i);
-                i--;
-            }
-            else if (left <= tRight.x && right >= tRight.x && top <= tRight.y && bottom >= tRight.y)
-            {
-                if (items.get(i) instanceof Phaser)
-                {
-                    gp.player.pEquipped = true;
-                    gp.player.shotsLeft = 3;
-                }
-                items.remove(i);
-                i--;
-            }
-            else if (left <= bRight.x && right >= bRight.x && top <= bRight.y && bottom >= bRight.y)
-            {
-                if (items.get(i) instanceof Phaser)
-                {
-                    gp.player.pEquipped = true;
-                    gp.player.shotsLeft = 3;
-                }
+
                 items.remove(i);
                 i--;
             }

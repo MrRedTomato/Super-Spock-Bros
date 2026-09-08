@@ -90,25 +90,34 @@ public class EnemyManager {
                 int boltRight = boltLeft + gp.tileSize;
                 int enemyLeft = enemy.posX;
                 int enemyRight = enemyLeft + gp.tileSize;
+                int margin = 16;
 
                 if (bolt.y >= enemy.posY - gp.tileSize / 2 && bolt.y <= enemy.posY + gp.tileSize)
                 {
                     if (bolt.direction.equals("right"))
                     {
-                        if (boltLeft <= enemyRight && boltRight + bolt.speed >= enemyLeft)
+                        if (boltLeft <= enemyRight && boltRight + bolt.speed >= enemyLeft + margin)
                         {
                             enemies.remove(i);
                             gp.bManager.bolts.remove(j);
+                            Dilithium dilithium = new Dilithium();
+                            dilithium.posX = enemy.posX;
+                            dilithium.posY = enemy.posY;
+                            gp.iManager.items.add(dilithium);
                             i--;
                             j--;
                         }
                     }
                     else
                     {
-                        if (boltRight >= enemyLeft && boltLeft - bolt.speed <= enemyRight)
+                        if (boltRight >= enemyLeft && boltLeft - bolt.speed <= enemyRight - margin)
                         {
                             enemies.remove(i);
                             gp.bManager.bolts.remove(j);
+                            Dilithium dilithium = new Dilithium();
+                            dilithium.posX = enemy.posX;
+                            dilithium.posY = enemy.posY;
+                            gp.iManager.items.add(dilithium);
                             i--;
                             j--;
                         }

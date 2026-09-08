@@ -12,10 +12,12 @@ public class Player extends Entity
     public boolean pEquipped;
     public BufferedImage pRight, pLeft;
     public BufferedImage heart;
+    public BufferedImage crystal;
     public boolean phaserFired;
     public boolean wasAttacked;
     public int shotsLeft;
     public int health;
+    public int dilithium;
 
     public Player(KeyHandler keyHandler, GamePanel gamePanel) {
         super(gamePanel.screenWidth / 2, 200);
@@ -30,6 +32,7 @@ public class Player extends Entity
         shotsLeft = 3;
         wasAttacked = false;
         health = 3;
+        dilithium = 0;
     }
 
     public void getPlayerImage()
@@ -40,6 +43,7 @@ public class Player extends Entity
             pRight = ImageIO.read(getClass().getResourceAsStream("assets/phaser_right.png"));
             pLeft = ImageIO.read(getClass().getResourceAsStream("assets/phaser_left.png"));
             heart = ImageIO.read(getClass().getResourceAsStream("assets/heart.png"));
+            crystal = ImageIO.read(getClass().getResourceAsStream("assets/dilithium.png"));
         } catch (IOException e)
         {
             e.printStackTrace();
@@ -152,9 +156,12 @@ public class Player extends Entity
         }
 
         g.drawImage(image, getPosX(), getPosY(), gp.tileSize, gp.tileSize, null);
+
         for (int i = 0; i < health; i++)
         {
             g.drawImage(heart, gp.scale + i * (gp.tileSize + gp.scale), 0, gp.tileSize, gp.tileSize, null);
         }
+
+        g.drawImage(crystal, (gp.maxScreenCol - 1) * gp.tileSize - gp.tileSize / 2, gp.tileSize / 2, gp.tileSize, gp.tileSize, null);
     }
 }
