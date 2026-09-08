@@ -24,6 +24,13 @@ public class ItemManager
             phaser.posY = 9 * gp.tileSize;
             items.add(phaser);
         }
+        if (gp.lvl == 2)
+        {
+            Phaser phaser1 = new Phaser();
+            phaser1.posX = 21 * gp.tileSize;
+            phaser1.posY = 3 * gp.tileSize;
+            items.add(phaser1);
+        }
     }
 
     public void checkCollision()

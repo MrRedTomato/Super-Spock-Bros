@@ -5,6 +5,7 @@ public class Enemy extends Entity
 {
     public Enemy()
     {
+        speed = 3;
         direction = "right";
         try
         {

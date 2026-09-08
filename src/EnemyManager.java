@@ -14,6 +14,7 @@ public class EnemyManager {
 
     public void setEnemies()
     {
+        enemies = new ArrayList<>();
         if (gp.lvl == 1)
         {
             Enemy enemy1 = new Enemy();
@@ -25,6 +26,13 @@ public class EnemyManager {
             enemies.add(enemy1);
             enemies.add(enemy2);
         }
+        if (gp.lvl == 2)
+        {
+            Enemy enemy1 = new Enemy();
+            enemy1.posX = gp.tileSize * 26;
+            enemy1.posY = gp.tileSize * 6;
+            enemies.add(enemy1);
+        }
     }
 
     public void moveEnemies()
@@ -33,6 +41,7 @@ public class EnemyManager {
         {
             if (!checkRight(enemy) && !checkLeft(enemy))
             {
+                System.out.println("pp");
                 enemy.direction = "none";
             }
             else if (enemy.direction.equals("right") && !checkRight(enemy))

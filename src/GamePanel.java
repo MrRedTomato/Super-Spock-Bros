@@ -71,7 +71,9 @@ public class GamePanel extends JPanel implements Runnable
         worldX = 0;
         player.health = 3;
         player.posY = 200;
-        eManager.enemies = new ArrayList<>();
+        player.shotsLeft = 0;
+        eManager.setEnemies();
+        iManager.setItems();
         if (lvl == 2)
         {
             tileM.loadLevel("assets/lvl2.txt");
@@ -111,18 +113,16 @@ public class GamePanel extends JPanel implements Runnable
 
         Graphics2D g2 = (Graphics2D)g;
 
+        g2.drawImage(exitImage, exits[lvl - 1].x * tileSize + worldX + screenWidth / 2, exits[lvl - 1].y * tileSize, tileSize, tileSize, null);
+        bManager.draw(g2);
+        eManager.draw(g2);
+        iManager.draw(g2);
+        tileM.draw(g2);
+        player.draw(g2);
+
         if (gameOver)
         {
             g2.drawImage(gameOverScreen, 0, 0, screenWidth, screenHeight, null);
-        }
-        else
-        {
-            g2.drawImage(exitImage, exits[lvl - 1].x * tileSize + worldX + screenWidth / 2, exits[lvl - 1].y * tileSize, tileSize, tileSize, null);
-            bManager.draw(g2);
-            eManager.draw(g2);
-            iManager.draw(g2);
-            tileM.draw(g2);
-            player.draw(g2);
         }
 
         g2.dispose();
